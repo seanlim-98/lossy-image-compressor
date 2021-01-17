@@ -1,0 +1,122 @@
+/****************************************************************************
+ *  COMP 40 HW4 README                                                      *
+ *                                                                          *
+ *  README                                                                  *
+ *  Created By (UTLN): jlai03 & slim07                                      *
+ *           On      : 10/25/2020                                           *
+ *                                                                          *
+ ****************************************************************************/
+
+Creators: Jonathan Lai (jlai03) & Sean Lim (slim07)
+
+Acknowledgements: We'd like to give thanks to all of the TA's that helped us,
+namely Alex and Spencer. While we may not have able to complete this assignment
+completely accurately, they definitely led us in the right direction and were
+really patient in trying to help us debug.
+
+What has been correctly implemented & not correctly implemented:
+
+40image.c - This is the main driver function from the compression program. We
+            believe this was implemented correctly mostly because it's a pretty
+            simple file that just reads files from the command line and also
+            decides whether the compression or decompression program will be
+            run.
+
+bitpack.c/.h - This is the interface and implementation for bitpack. This was
+               where we implemented the functionality of our integer bit
+               packing helper functions which relied on to pack  bitwords into
+               32-bit codewords. We tested the functions here extensively and
+               are confident that they work as intended. Understanding how the
+               shifts worked and how to create masks was very challenging in
+               the beginning, but after drawing out different examples we got
+               the hang of things pretty quickly. Signed integer shifts proved
+               a little difficult for us, but with discussions we managed to
+               clear up most of our doubts.
+
+compress40.c/.h - This is the interface and implementation for compress40,
+                  which where the main programming for the overall compression
+                  and decompression functions is stored. There are only two
+                  functions here - compress40 and decompress40 - which serve as
+                  the driver functions for the compression and decompression
+                  functionalities respectively. We are confident this part was
+                  implemented correctly as they relied mostly on calling helper
+                  functions from other modules (e.g. bitpack, dct) that we
+                  tested separately with extensive unit tests. We did have
+                  issues with some other modules which definitely affected the
+                  ppmdiff score of our program, but we believe the order that
+                  we executed each helper function was conceptually correct.
+
+createpixmap.c/.h - This is the interface and implementation of createpixmap,
+                    which is a very short module that handles the allocation of
+                    memory and initialization of a new pixmap during the
+                    decompression stage of the program. We believe that this
+                    module was implemented correctly.
+
+cvrgb.c/.h - This is the interface and implementation of conversion between CV
+             and RGB. It can take an Pnm_ppm struct's pixmap and convert the
+             struct values from RGB to CV for compression and CV to RGB for
+             decompression. We tested the individual functions with multiple
+             edge cases and are confident that they operate properly within
+             their detailed scopes - otherwise, the functions correctly throw
+             errors where indicated.
+
+             When testing just a simple RGB-CV and CV-RGB conversion, our
+             ppmdiff showed us that we weren't getting differences on our input
+             and output images, which told us that we have implemented the
+             RGB-CV compression section correctly.
+
+dct.c/.h -   This is the interface and implementation of conversion between
+             Bitword and CV struct representations of pixmap blocks. In
+             compression, the four CV structs for each pixmap blocks are
+             converted into Bitwords (discrete cosine transformation); likewise
+             for decompression, a single Bitword struct is converted into four
+             separate CV's for the given pixmap block (inverse cosine).
+
+             We believe that we have implemented this part correctly in
+             concept, but our ppmdiff for our overall compressor returned
+             rather high values for some test PPMs and we pinpointed it to
+             some error in our cosine transformations. We don't think it's the
+             math, but possibly something to do with the passing of pointers.
+
+maptrans.c/.h - This is the interface and implementation of maptrans, which is
+                a module containing functions that help with the mapping
+                through our PPM pixmap, and then processing values from each
+                pixel or block of pixels. transformation_map function is the
+                overall mapping function for our compression and decompression
+                programs, mapping through the pixels in 2x2 blocks, and running
+                the linear transformations and word packing functionalities on
+                the pixels to create a codeword for each block. The
+                block_chroma_map function takes a 2x2 pixel block and extracts
+                chroma values from them and adds them to our Bitword structs in
+                the compression process, which is then packed into a codeword.
+
+                Conceptually, we believe this module was implemented properly.
+                However, in terms of execution we suspect there has to be some
+                sort of error involving one of the transformations in the
+                mapping process, since our overall ppmdiff recorded some
+                differences for some of our test files which we attribute to
+                some pointer/memory complexities used in this part of our
+                program.
+
+packwords.c/.h - This is the interface and implementation of packwords, which
+                 is a module we created to handle the packing of Bitwords into
+                 codewords, and unpacking of codewords into Bitwords. For this
+                 module, we relied heavily on the functions we created in our
+                 Bitpack module which we had tested separately with multiple
+                 rigorous test cases. We are fairly confident that this was
+                 implemented correctly as we tested our Bitpack functions
+                 carefully and were also conscientious in ensuring the
+                 codewords were read in different orders to account for
+                 reverse endian in the compression process.
+
+ppmdiff.c - This is the implementation of the ppmdiff program that we were told
+            to program for lab, and that we used extensively to test our
+            program. The concept of ppmdiff wasn't too difficult to grasp -
+            basically parsing through each pixel of 2 PPMs and calculating the
+            differences between them - and we believe we got the math right. We
+            tested ppmdiff on identical PPM images, similar images
+            that had minor differences in color grading, as well as very
+            different images to accurately determine whether ppmdiff was
+            working.
+
+Approximate time: 60 hours
