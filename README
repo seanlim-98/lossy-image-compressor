@@ -1,18 +1,13 @@
 /****************************************************************************
  *  COMP 40 HW4 README                                                      *
  *                                                                          *
- *  README                                                                  *
+ *  Lossy Image Compressor                                                                  *
  *  Created By (UTLN): jlai03 & slim07                                      *
  *           On      : 10/25/2020                                           *
  *                                                                          *
  ****************************************************************************/
 
 Creators: Jonathan Lai (jlai03) & Sean Lim (slim07)
-
-Acknowledgements: We'd like to give thanks to all of the TA's that helped us,
-namely Alex and Spencer. While we may not have able to complete this assignment
-completely accurately, they definitely led us in the right direction and were
-really patient in trying to help us debug.
 
 What has been correctly implemented & not correctly implemented:
 
