@@ -1,16 +1,3 @@
-/****************************************************************************
- *  COMP 40 HW4 README                                                      *
- *                                                                          *
- *  Lossy Image Compressor                                                                  *
- *  Created By (UTLN): jlai03 & slim07                                      *
- *           On      : 10/25/2020                                           *
- *                                                                          *
- ****************************************************************************/
-
-Creators: Jonathan Lai (jlai03) & Sean Lim (slim07)
-
-What has been correctly implemented & not correctly implemented:
-
 40image.c - This is the main driver function from the compression program. We
             believe this was implemented correctly mostly because it's a pretty
             simple file that just reads files from the command line and also
@@ -113,5 +100,3 @@ ppmdiff.c - This is the implementation of the ppmdiff program that we were told
             that had minor differences in color grading, as well as very
             different images to accurately determine whether ppmdiff was
             working.
-
-Approximate time: 60 hours
